@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pig.hydrological.mapper.BizWaterCurrentMapper">
+
+    <!-- 通用查询映射结果 -->
+    
+    <resultMap id="BaseResultMap" type="com.github.pig.hydrological.model.entity.BizWaterCurrent">
+        <result column="STCD" property="stcd" />
+        <result column="TM" property="tm" />
+        <result column="DATA_STYLE" property="dataStyle" />
+        <result column="HOUR_WATER_P" property="hourWaterP" />
+        <result column="HOUR_WATER" property="hourWater" />
+        <result column="VOLTAGE" property="voltage" />
+        <result column="PRE_WATER" property="preWater" />
+        <result column="CAPACITY" property="capacity" />
+        <result column="FLOW" property="flow" />
+        <result column="WPTN" property="wptn" />
+    </resultMap>
+    
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from biz_water_current where tm = (select MAX(tm) from biz_water_current)
+    </select>
+
+</mapper>

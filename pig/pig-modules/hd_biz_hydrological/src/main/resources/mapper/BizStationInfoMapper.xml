@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pig.hydrological.mapper.BizStationInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    
+    <resultMap id="BaseResultMap" type="com.github.pig.hydrological.model.entity.BizStationInfo">
+        <result column="STATION_ID" property="stationId" />
+        <result column="TERM_SN" property="termSn" />
+        <result column="STATION_CODE" property="stationCode" />
+        <result column="STATION_TYPE" property="stationType" />
+        <result column="NAME" property="name" />
+        <result column="BUILD_DATE" property="buildDate" />
+        <result column="MANAGEMENT_UNIT" property="managementUnit" />
+        <result column="PERSON" property="person" />
+        <result column="TELEPHONE" property="telephone" />
+        <result column="PHOTO" property="photo" />
+        <result column="DEPT_ID" property="deptId" />
+        <result column="BASE_VALUE" property="baseValue" />
+        <result column="DR_AREA_ID" property="drAreaId" />
+        <result column="delFlag" property="delflag" />
+        <result column="SOURCE_TYPE" property="sourceType" />
+        <result column="RVNM" property="rvnm" />
+    </resultMap>
+    
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from biz_station_info
+    </select>
+
+</mapper>

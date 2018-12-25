@@ -1,0 +1,68 @@
+server:
+  port: 9999
+
+spring:
+  zipkin:
+    rabbitmq:
+      queue: zipkin
+  sleuth:
+    sampler:
+      percentage: 0.2
+
+zuul:
+  ribbon:
+    eager-load:
+      enabled: true
+      clients: pig-auth,pig-upms-service,pig-demo-service,hd_biz_hydrological,hd-Q-service
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
+  ratelimit:
+    key-prefix: pig-ratelimite
+    enabled: true
+    repository: REDIS
+    behind-proxy: true
+    policies:
+      pig-upms-service:
+        limit: 100
+        quota: 100
+        refresh-interval: 3
+
+security:
+  encode:
+    key: '1234567887654321' #必须16位
+  validate:
+    #是否开启验证码校验 解决办法用的是 @ConditionalOnProperty注解  当value的值=havingValue时生效。
+    code: false
+    preview: false
+  sessions: stateless
+  oauth2:
+    client:
+      client-id: pig
+      client-secret: pig
+    resource:
+      jwt:
+         key-uri: ${security.auth.server}/oauth/token_key #解析jwt令牌所需要密钥的地址
+
+ignore:
+  urls:
+    - /mobile/**
+    - /auth/**
+    - /admin/code/*
+    - /admin/smsCode/*
+    - /admin/user/info
+    - /admin/menu/userMenu
+    - /swagger-resources/**
+    - /swagger-ui.html
+    - /*/v2/api-docs
+    - /swagger/api-docs
+    - /webjars/**
+    #增加水雨情url   这个需要再数据库做组件对应的设置
+    - /hydrological/**
+    #增加流量
+    - /waterq/stRiverR/multipleData
+    #增加日志访问权限
+    - /admin/dict/type/log_type
+  clients:
+    - app

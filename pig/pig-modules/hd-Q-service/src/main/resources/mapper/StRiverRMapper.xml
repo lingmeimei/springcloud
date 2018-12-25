@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pig.waterq.mapper.StRiverRMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.pig.waterq.model.entity.StRiverR">
+        <id column="STCD" property="stcd" />
+        <result column="TM" property="tm" />
+        <result column="Z" property="z" />
+        <!--<result column="Q" property="q" />-->
+        <result column="XSA" property="xsa" />
+        <result column="XSAVV" property="xsavv" />
+        <result column="XSMXV" property="xsmxv" />
+        <result column="FLWCHRCD" property="flwchrcd" />
+        <result column="WPTN" property="wptn" />
+        <result column="MSQMT" property="msqmt" />
+        <result column="MSAMT" property="msamt" />
+        <result column="MSVMT" property="msvmt" />
+        <result column="SYNC_FLG" property="syncFlg" />
+        <result column="VOLTAGE" property="voltage" />
+    </resultMap>
+
+    <!-- 实时查询 -->
+    <resultMap id="MultipleData" type="com.github.pig.waterq.model.dto.MultipleData" extends="BaseResultMap">
+        <!--wpChannelWaterSync-->
+        <result column="Q" property="wpChannelWaterSync.q" />
+        <result column="TOTAL" property="wpChannelWaterSync.total" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        STCD AS stcd, TM AS tm, Z AS z, Q AS q, XSA AS xsa, XSAVV AS xsavv, XSMXV AS xsmxv, FLWCHRCD AS flwchrcd, WPTN AS wptn, MSQMT AS msqmt, MSAMT AS msamt, MSVMT AS msvmt, SYNC_FLG AS syncFlg, VOLTAGE AS voltage
+    </sql>
+
+    <select id="selectMultipleDataPage" parameterType="java.util.HashMap" resultMap="MultipleData" resultType="com.github.pig.waterq.model.dto.MultipleData">
+        select s.stcd,s.tm,s.z,s.voltage,q.q,q.total from St_River_R s
+        left join wp_channel_water_sync q on q.stcd=s.stcd and q.tm=s.tm
+        order by s.TM desc
+    </select>
+
+</mapper>

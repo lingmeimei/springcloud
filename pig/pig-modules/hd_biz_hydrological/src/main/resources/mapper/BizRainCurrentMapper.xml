@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pig.hydrological.mapper.BizRainCurrentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.pig.hydrological.model.entity.BizRainCurrent">
+        <result column="STCD" property="stcd" />
+        <result column="TM" property="tm" />
+        <result column="DATA_STYLE" property="dataStyle" />
+        <result column="HOUR_RAIN_P" property="hourRainP" />
+        <result column="DAY_RAIN" property="dayRain" />
+        <result column="MONTH_RAIN" property="monthRain" />
+        <result column="YEAR_RAIN" property="yearRain" />
+        <result column="TOTAL_RAIN" property="totalRain" />
+        <result column="HOUR_RAIN" property="hourRain" />
+        <result column="VOLTAGE" property="voltage" />
+        <result column="THREE_HOUR_VALUE" property="threeHourValue" />
+        <result column="SIX_HOUR_VALUE" property="sixHourValue" />
+        <result column="TWELVE_HOUR_VALUE" property="twelveHourValue" />
+        <result column="ONE_DAY_VALUE" property="oneDayValue" />
+        <result column="THREE_DAY_VALUE" property="threeDayValue" />
+        <result column="ONE_HOUR_VALUE" property="oneHourValue" />
+        <result column="TEN_MIN_VALUE" property="tenMinValue" />
+        <result column="THIRTEEN_MIN_VALUE" property="thirteenMinValue" />
+        <result column="INTV" property="intv" />
+    </resultMap>
+    
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from biz_rain_current where tm = (select MAX(tm) from biz_rain_current)
+    </select>
+
+</mapper>

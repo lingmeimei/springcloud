@@ -1,0 +1,37 @@
+# 注册服务的端口
+server:
+  port: 4001
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://pig:gip6666@localhost:1025/eureka
+    registry-fetch-interval-seconds: 10
+
+spring:
+  application:
+    name: pig-config-server #配置服务名称
+  profiles:
+    active: native #设置为本地启动的方式，而不是通过git
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: classpath:/config # 配置文件所在目录，classpath（类路径）和（系统文件路径） file两种
+        #git:
+          #uri: https://gitee.com/hsLeng/pig-config.git
+          #uri: http://localhost:8088/manager/config
+         # default-label: ${spring.profiles.active}   #解决监控down
+
+# 关闭安全管理
+management:
+  security:
+    enabled: false
+endpoints:
+  health:
+    sensitive: false
+

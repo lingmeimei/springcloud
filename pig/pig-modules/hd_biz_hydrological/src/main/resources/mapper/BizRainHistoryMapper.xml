@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pig.hydrological.mapper.BizRainHistoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.pig.hydrological.model.entity.BizRainHistory">
+        <result column="STCD" property="stcd" />
+        <result column="TM" property="tm" />
+        <result column="DATA_STYLE" property="dataStyle" />
+        <result column="HOUR_RAIN_P" property="hourRainP" />
+        <result column="HOUR_RAIN" property="hourRain" />
+        <result column="DAY_RAIN" property="dayRain" />
+        <result column="MONTH_RAIN" property="monthRain" />
+        <result column="YEAR_RAIN" property="yearRain" />
+        <result column="TOTAL_RAIN" property="totalRain" />
+        <result column="VOLTAGE" property="voltage" />
+        <result column="INTV" property="intv" />
+    </resultMap>
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from biz_rain_history
+    </select>
+    
+    <select id="getListRe" resultMap="BaseResultMap">
+        select * from biz_rain_history_re
+    </select>
+    
+    <select id = "getByDay" resultMap="BaseResultMap">
+        select sum(cast(a.HOUR_RAIN_P as int)) as hourRainP,sum(cast(a.HOUR_RAIN as int)) from biz_rain_history a
+        group by year(a.tm),month(a.tm),day(a.tm)
+    </select>
+    <select id = "getByMonth" resultMap="BaseResultMap">
+        select sum(cast(a.HOUR_RAIN_P as int)) as hourRainP,sum(cast(a.HOUR_RAIN as int)) from biz_rain_history a
+        group by year(a.tm),month(a.tm)
+    </select>
+    <select id = "getByYear" resultMap="BaseResultMap">
+       select sum(cast(a.HOUR_RAIN_P as int)) as hourRainP,sum(cast(a.HOUR_RAIN as int)) as hourRain from biz_rain_history a
+        group by year(a.tm)
+    </select>
+    
+    <delete id="deleteFloodVoxRelByIdAndGate" parameterType="java.util.HashMap">
+        delete from biz_rain_history_re where stcd = #{stcd} and tm = #{tm}
+    </delete>
+
+</mapper>

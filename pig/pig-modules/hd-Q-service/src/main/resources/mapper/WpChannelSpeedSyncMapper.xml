@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pig.waterq.mapper.WpChannelSpeedSyncMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.pig.waterq.model.entity.WpChannelSpeedSync">
+        <id column="STCD" property="stcd" />
+        <result column="TM" property="tm" />
+        <result column="SPEED" property="speed" />
+        <result column="TS" property="ts" />
+        <result column="VOLTAGE" property="voltage" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        STCD AS stcd, TM AS tm, SPEED AS speed, TS AS ts, VOLTAGE AS voltage
+    </sql>
+
+</mapper>

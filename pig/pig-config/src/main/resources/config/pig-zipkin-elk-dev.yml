@@ -1,0 +1,19 @@
+server:
+  port: 5002
+
+zipkin:
+  collector:
+    rabbitmq:
+      addresses: 172.16.22.146:12345
+      password: 123
+      username: h7760
+      queue: zipkin
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      hosts: 139.224.200.249:9200
+      cluster: elasticsearch
+      index: zipkin
+      max-requests: 64
+      index-shards: 5
+      index-replicas: 1
